@@ -16,6 +16,12 @@ add_library(GuitarwiterTSF SHARED
 )
 target_include_directories(GuitarwiterTSF PRIVATE src)
 
+# WAJIB: windows.h secara default mendefinisikan makro preprocessor min/max, yang merusak
+# semua pemanggilan std::min/std::max di kode ini (menyebabkan error C2589 "illegal token on
+# right side of '::'" karena "std::min(" berubah jadi "std::(" oleh preprocessor). NOMINMAX
+# mematikan makro itu. WIN32_LEAN_AND_MEAN mempercepat kompilasi dengan skip header jarang pakai.
+target_compile_definitions(GuitarwiterTSF PRIVATE NOMINMAX WIN32_LEAN_AND_MEAN)
+
 # Header-only implementation classes tetap perlu didaftarkan supaya muncul di IDE/dependency
 # tracking, meskipun isinya inline semua.
 target_sources(GuitarwiterTSF PRIVATE
