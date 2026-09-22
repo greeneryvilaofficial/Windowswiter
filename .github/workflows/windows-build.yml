@@ -8,16 +8,14 @@ on:
   push:
     branches: [ main ]
     paths:
-      - 'tsf/**'
+      - 'src/**'
+      - 'CMakeLists.txt'
       - '.github/workflows/windows-build.yml'
   workflow_dispatch: {}
 
 jobs:
   build:
     runs-on: windows-latest
-    defaults:
-      run:
-        working-directory: tsf
     steps:
       - name: Checkout kode
         uses: actions/checkout@v6
@@ -40,5 +38,5 @@ jobs:
         uses: actions/upload-artifact@v6
         with:
           name: GuitarwiterTSF-dll
-          path: tsf/build/Release/GuitarwiterTSF.dll
+          path: build/Release/GuitarwiterTSF.dll
           if-no-files-found: warn
