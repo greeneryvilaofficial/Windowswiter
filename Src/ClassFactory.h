@@ -2,6 +2,7 @@
 // GuitarwiterTextService lewat CoCreateInstance(CLSID_GuitarwiterTextService, ...).
 #pragma once
 #include <unknwn.h>
+#include <atomic>
 #include "GuitarwiterTextService.h"
 
 namespace guitarwiter {
@@ -25,7 +26,8 @@ public:
     }
     STDMETHODIMP LockServer(BOOL lock) override {
         extern std::atomic<long> g_lockCount;
-        if (lock) InterlockedIncrement(&g_lockCount); else InterlockedDecrement(&g_lockCount);
+        if (lock) g_lockCount.fetch_add(1);
+        else g_lockCount.fetch_sub(1);
         return S_OK;
     }
 private:

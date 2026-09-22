@@ -5,6 +5,7 @@
 #include <msctf.h>
 #include <wrl/client.h>
 #include <atomic>
+#include <algorithm>
 #include "AudioCapture.h"
 #include "YinPitchDetector.h"
 #include "PitchMap.h"

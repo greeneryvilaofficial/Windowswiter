@@ -14,6 +14,7 @@
 #include <thread>
 #include <vector>
 #include <wrl/client.h>
+#include "PitchMap.h"  // untuk kFallbackSampleRate
 
 namespace guitarwiter {
 

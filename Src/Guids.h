@@ -10,6 +10,8 @@
 #pragma once
 #include <initguid.h>
 
+namespace guitarwiter {
+
 // CLSID kelas COM utama (ITfTextInputProcessor)
 // {2F1A9E3C-8B6D-4C7A-9E2F-6A1D3B5C7E9F}
 DEFINE_GUID(CLSID_GuitarwiterTextService,
@@ -24,3 +26,5 @@ DEFINE_GUID(GUID_GuitarwiterProfile,
 // {9A3C5E7D-1B4F-4A6E-9D3C-5E7A1B4F6A9D}
 DEFINE_GUID(GUID_GuitarwiterLangBarItem,
     0x9a3c5e7d, 0x1b4f, 0x4a6e, 0x9d, 0x3c, 0x5e, 0x7a, 0x1b, 0x4f, 0x6a, 0x9d);
+
+}  // namespace guitarwiter

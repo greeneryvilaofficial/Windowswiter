@@ -10,6 +10,8 @@
 
 namespace guitarwiter {
 
+constexpr double kPi = 3.14159265358979323846;
+
 struct PitchReading {
     double freq;
     double probability;
@@ -17,7 +19,7 @@ struct PitchReading {
 
 inline double GoertzelMag(const float* buf, int size, double targetFreq, int sampleRate) {
     int k = static_cast<int>(std::lround(size * targetFreq / sampleRate));
-    double w = 2.0 * M_PI * k / size;
+    double w = 2.0 * kPi * k / size;
     double cosine = std::cos(w), sine = std::sin(w), coeff = 2.0 * cosine;
     double q0 = 0, q1 = 0, q2 = 0;
     for (int n = 0; n < size; n++) {
