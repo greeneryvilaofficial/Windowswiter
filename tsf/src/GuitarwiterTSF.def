@@ -1,0 +1,8 @@
+; GuitarwiterTSF.def — daftar fungsi yang diekspor DLL dengan nama PERSIS (tanpa name-mangling
+; C++/decorasi __stdcall). regsvr32.exe dan TSF runtime Windows mencari fungsi ini apa adanya.
+LIBRARY GuitarwiterTSF
+EXPORTS
+    DllGetClassObject   PRIVATE
+    DllCanUnloadNow     PRIVATE
+    DllRegisterServer   PRIVATE
+    DllUnregisterServer PRIVATE
