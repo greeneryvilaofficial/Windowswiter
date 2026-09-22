@@ -1,0 +1,44 @@
+name: Build Windows TSF (GuitarwiterTSF.dll)
+
+# Compiler MSVC ASLI jalan di sini (windows-latest runner) -- ini satu-satunya cara memverifikasi
+# kode C++/COM/TSF ini benar-benar valid, karena sandbox pembuatnya (Claude) tidak punya Windows
+# sama sekali. Kalau step "Build (CMake + MSVC)" di bawah gagal, itu artinya ADA kesalahan nyata
+# di kode C++ yang perlu diperbaiki -- bukan cuma kesalahan dugaan.
+on:
+  push:
+    branches: [ main ]
+    paths:
+      - 'tsf/**'
+      - '.github/workflows/windows-build.yml'
+  workflow_dispatch: {}
+
+jobs:
+  build:
+    runs-on: windows-latest
+    defaults:
+      run:
+        working-directory: tsf
+    steps:
+      - name: Checkout kode
+        uses: actions/checkout@v6
+
+      - name: Configure (CMake, arsitektur x64)
+        run: cmake -B build -A x64
+
+      - name: Build (CMake + MSVC) -- kompilasi sungguhan terjadi di sini
+        run: cmake --build build --config Release --verbose
+
+      - name: Cek DLL benar-benar terbentuk
+        shell: pwsh
+        run: |
+          $dll = "build/Release/GuitarwiterTSF.dll"
+          if (-not (Test-Path $dll)) { Write-Error "FATAL: $dll tidak ditemukan setelah build."; exit 1 }
+          Write-Host "OK: $dll ($((Get-Item $dll).Length) bytes)"
+
+      - name: Unggah GuitarwiterTSF.dll sebagai artifact
+        if: always()
+        uses: actions/upload-artifact@v6
+        with:
+          name: GuitarwiterTSF-dll
+          path: tsf/build/Release/GuitarwiterTSF.dll
+          if-no-files-found: warn
