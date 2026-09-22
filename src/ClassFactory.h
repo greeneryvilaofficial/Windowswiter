@@ -7,6 +7,10 @@
 
 namespace guitarwiter {
 
+// Deklarasi di scope namespace (BUKAN di dalam function body) -- supaya pasti terikat ke
+// guitarwiter::g_lockCount, bukan ke namespace global. Definisi sebenarnya ada di DllMain.cpp.
+extern std::atomic<long> g_lockCount;
+
 class ClassFactory : public IClassFactory {
 public:
     STDMETHODIMP QueryInterface(REFIID riid, void** ppv) override {
@@ -25,7 +29,6 @@ public:
         return hr;
     }
     STDMETHODIMP LockServer(BOOL lock) override {
-        extern std::atomic<long> g_lockCount;
         if (lock) g_lockCount.fetch_add(1);
         else g_lockCount.fetch_sub(1);
         return S_OK;
