@@ -7,6 +7,9 @@
 // Windows sungguhan (itu jauh lebih kompleks, butuh ITfLangBarItemButton custom UI). Klik tombol
 // di sini memicu callback yang sama dengan jalur deteksi nada gitar.
 #pragma once
+#ifndef NOMINMAX
+#define NOMINMAX  // cegah windows.h mendefinisikan makro min/max yang merusak std::min/std::max
+#endif
 #include <windows.h>
 #include <windowsx.h>
 #include <string>

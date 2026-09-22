@@ -6,6 +6,9 @@
 // banyak jebakan (format audio device yang tidak terduga, event handle, COM apartment thread)
 // yang biasanya baru ketahuan saat benar-benar dites di Windows asli.
 #pragma once
+#ifndef NOMINMAX
+#define NOMINMAX  // cegah windows.h mendefinisikan makro min/max yang merusak std::min/std::max
+#endif
 #include <windows.h>
 #include <mmdeviceapi.h>
 #include <audioclient.h>

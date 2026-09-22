@@ -1,6 +1,9 @@
 // DllMain.cpp — entry point DLL. Windows memuat GuitarwiterTSF.dll dan memanggil fungsi-fungsi
 // standar di sini (DllGetClassObject dipanggil TSF runtime saat mengaktifkan keyboard ini;
 // DllRegisterServer/DllUnregisterServer dipanggil regsvr32.exe saat install/uninstall).
+#ifndef NOMINMAX
+#define NOMINMAX  // cegah windows.h mendefinisikan makro min/max yang merusak std::min/std::max
+#endif
 #include <windows.h>
 #include <atomic>
 #include "Guids.h"
